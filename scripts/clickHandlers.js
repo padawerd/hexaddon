@@ -65,6 +65,10 @@ function absorb(scene, clickedHex)
     const adjacentHexes = clickedHex.adjacentHexes;
     const hexesToBeAbsorbed = _.filter(adjacentHexes, (adjacentHex) => shouldAbsorb(clickedHex, adjacentHex));
     const willAbsorb = hexesToBeAbsorbed.length > 0;
+    if (willAbsorb)
+    {
+        scene.model.touchesDisabled = true;
+    }
 
     for (const adjacentHex of clickedHex.adjacentHexes)
     {
@@ -105,7 +109,10 @@ function absorb(scene, clickedHex)
                 delay: scene.constants.animationDuration,
                 repeat: 0,
                 yoyo:false,
-                onComplete: () => doubleHex(scene, clickedHex)
+                onComplete: () => {
+                                    doubleHex(scene, clickedHex);
+                                    scene.model.touchesDisabled = false;
+                                  }
             }
         );
     }
