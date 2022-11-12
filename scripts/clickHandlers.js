@@ -27,7 +27,8 @@ function populateClickedHex(scene, clickedHex)
                                           innerMultiplier);
     const points = hexagonPoints(adjustedHexRadius);
     clickedHex.currentPiece.hex = scene.add.polygon(coords.x, coords.y, points, scene.constants.pieceColors[colorNumberForValue(newValue)]);
-    clickedHex.currentPiece.text = scene.add.text(coords.x, coords.y, newValue);
+    // todo: be more intentional
+    clickedHex.currentPiece.text = scene.add.text(coords.x - 10, coords.y, newValue);
     incrementScore(scene, newValue);
 }
 
