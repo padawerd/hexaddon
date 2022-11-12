@@ -2,7 +2,7 @@ var config = {
     type: Phaser.AUTO,
     width: 600,
     height: 600,
-    backgroundColor: '#ff00ff',
+    backgroundColor: '#852999',
     scene: {
         //preload: preload,
         create: create
@@ -36,15 +36,16 @@ function setupConstants(scene)
     scene.constants.animationEase = Phaser.Math.Easing.Quadratic.Out;
     // TODO: this can probably just be math?
     // from https://colorhunt.co/palette/f5d5aeef9a53c539b4852999
-    scene.constants.pieceColors = { 1   : Phaser.Display.Color.HexStringToColor('#F5D5AE').color,
-                                    2   : Phaser.Display.Color.HexStringToColor('#EF9A53').color,
-                                    4   : Phaser.Display.Color.HexStringToColor('#C539B4').color,
-                                    8   : Phaser.Display.Color.HexStringToColor('#852999').color,
-                                    16  : Phaser.Display.Color.HexStringToColor('#00ff44').color,
-                                    32  : Phaser.Display.Color.HexStringToColor('#00ff55').color,
-                                    64  : Phaser.Display.Color.HexStringToColor('#00ff66').color,
-                                    128 : Phaser.Display.Color.HexStringToColor('#00ff77').color
-                                }
+    scene.constants.pieceColors = { 
+                                    0   : Phaser.Display.Color.HexStringToColor('#9A2A35').color,
+                                    1   : Phaser.Display.Color.HexStringToColor('#9A2A5E').color,
+                                    2   : Phaser.Display.Color.HexStringToColor('#9A2A87').color,
+                                    3   : Phaser.Display.Color.HexStringToColor('#852999').color,
+                                    4   : Phaser.Display.Color.HexStringToColor('#5A2A9A').color,
+                                    5   : Phaser.Display.Color.HexStringToColor('#2A2A9A').color,
+                                    6   : Phaser.Display.Color.HexStringToColor('#2A579A').color,
+                                    7   : Phaser.Display.Color.HexStringToColor('#2A809A').color
+                                  }
 }
 
 function setupModel(scene)

@@ -48,3 +48,14 @@ function scoreString(scoreValue)
     return `SCORE: ${scoreValue}`
 }
 
+function colorNumberForValue(value)
+{
+    const mod16 = (Math.log(value) / Math.log(2)) % 14; // 0, 7, 8, 13 
+    if (mod16 < 8) // 0, 7
+    {
+        return mod16 // 0, 7
+    } else { // 8, 13
+        return 14 - mod16; // 6, 1
+    }
+}
+

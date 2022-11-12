@@ -26,7 +26,7 @@ function populateClickedHex(scene, clickedHex)
                                           gridRadius,
                                           innerMultiplier);
     const points = hexagonPoints(adjustedHexRadius);
-    clickedHex.currentPiece.hex = scene.add.polygon(coords.x, coords.y, points, scene.constants.pieceColors[newValue]);
+    clickedHex.currentPiece.hex = scene.add.polygon(coords.x, coords.y, points, scene.constants.pieceColors[colorNumberForValue(newValue)]);
     clickedHex.currentPiece.text = scene.add.text(coords.x, coords.y, newValue);
     incrementScore(scene, newValue);
 }
@@ -98,7 +98,7 @@ function absorb(scene, clickedHex)
         scene.tweens.add(
             {
                 targets: clickedHex.currentPiece.hex,
-                fillColor: scene.constants.pieceColors[newHexValue],
+                fillColor: scene.constants.pieceColors[colorNumberForValue(newHexValue)],
                 ease: scene.constants.animationEase,
                 duration: 0,
                 delay: scene.constants.animationDuration,
@@ -123,7 +123,7 @@ function doubleHex(scene, hex)
     const newValue = hex.currentPiece.value * 2;
     hex.currentPiece.value = newValue;
     hex.currentPiece.text.text = newValue;
-    hex.currentPiece.hex.fillColor = scene.constants.pieceColors[newValue];
+    hex.currentPiece.hex.fillColor = scene.constants.pieceColors[colorNumberForValue(newValue)];
     incrementScore(scene, newValue);
 }
 
