@@ -43,12 +43,9 @@ function nextPieceValue(scene)
 {
     const flattenedHexes = scene.model.backgroundHexes.flat();
     const hexesWithPieces = _.filter(flattenedHexes, flattenedHex => flattenedHex.currentPiece != null);
-    console.log("hexesWithPieces: " + hexesWithPieces)
     const values = _.map(hexesWithPieces, piece => piece.currentPiece.value);
     const minValue = Math.min(...values);
     const maxValue = Math.max(...values);
-    console.log("values.length: " + values.length);
-    console.log("min: " + minValue);
     const logMinValue = Math.log(minValue) / Math.log(2);
     const logMaxValue = Math.log(maxValue) / Math.log(2);
     const newValueExponent = Math.floor(Math.random() * (logMaxValue - logMinValue + 1)) + logMinValue;
@@ -56,23 +53,62 @@ function nextPieceValue(scene)
     return newValue;
 }
 
+function shouldAbsorb(clickedHex, adjacentHex)
+{
+    return adjacentHex.currentPiece != null && clickedHex.currentPiece.value == adjacentHex.currentPiece.value
+}
+
 function absorb(scene, clickedHex) 
 {
-    let didAbsorb = false;
+
+    const adjacentHexes = clickedHex.adjacentHexes;
+    const hexesToBeAbsorbed = _.filter(adjacentHexes, (adjacentHex) => shouldAbsorb(clickedHex, adjacentHex));
+    const willAbsorb = hexesToBeAbsorbed.length > 0;
+
     for (const adjacentHex of clickedHex.adjacentHexes)
     {
-        if (adjacentHex.currentPiece != null && 
-            clickedHex.currentPiece.value == adjacentHex.currentPiece.value)
+        if (shouldAbsorb(clickedHex, adjacentHex))
         {
-            removeCurrentPieceFromHex(adjacentHex);
-            didAbsorb = true;
+            scene.tweens.add(
+                {
+                    targets: adjacentHex.currentPiece.hex,
+                    x: clickedHex.currentPiece.hex.x, // works if alpha: 0
+                    y: clickedHex.currentPiece.hex.y,
+                    ease: scene.constants.animationEase,
+                    duration: scene.constants.animationDuration,
+                    repeat: 0,
+                    yoyo:false,
+                    onComplete: () => removeCurrentPieceFromHex(adjacentHex)
+                }
+            );
+            scene.tweens.add({
+                targets: adjacentHex.currentPiece.text,
+                x: clickedHex.currentPiece.hex.x,
+                y: clickedHex.currentPiece.hex.y,
+                ease: scene.constants.animationEase,
+                duration: scene.constants.animationDuration,
+                repeat: 0,
+                yoyo:false
+            });
         }
     }
-
-    if (didAbsorb)
+    if (willAbsorb)
     {
-        doubleHex(scene, clickedHex);
+        const newHexValue = clickedHex.currentPiece.value * 2;
+        scene.tweens.add(
+            {
+                targets: clickedHex.currentPiece.hex,
+                fillColor: scene.constants.pieceColors[newHexValue],
+                ease: scene.constants.animationEase,
+                duration: 0,
+                delay: scene.constants.animationDuration,
+                repeat: 0,
+                yoyo:false,
+                onComplete: () => doubleHex(scene, clickedHex)
+            }
+        );
     }
+
 }
 
 function removeCurrentPieceFromHex(hex)

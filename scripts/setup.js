@@ -18,7 +18,6 @@ function preload()
 
 function create()
 {
-    console.log("create!")
     this.model = {}
     setupConstants(this);
     setupModel(this);
@@ -33,6 +32,8 @@ function setupConstants(scene)
     scene.constants.emptyHexColor = Phaser.Display.Color.HexStringToColor('#ffffff').color;
     scene.constants.gameOverBackgroundColor = Phaser.Display.Color.HexStringToColor('#ffff00').color
     scene.constants.gameOverTextColor = Phaser.Display.Color.HexStringToColor('#000000').color
+    scene.constants.animationDuration = 400;
+    scene.constants.animationEase = Phaser.Math.Easing.Quadratic.Out;
     // TODO: this can probably just be math?
     // from https://colorhunt.co/palette/f5d5aeef9a53c539b4852999
     scene.constants.pieceColors = { 1   : Phaser.Display.Color.HexStringToColor('#F5D5AE').color,
