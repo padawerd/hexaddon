@@ -16,3 +16,35 @@ function hexagonPoints(radius)
     return [topLeftPoint, topRightPoint, farRightPoint, bottomRightPoint, bottomLeftPoint, farLeftPoint];
 }
 
+function coordinatesForPosition(x, y, hexRadius, gridRadius, multiplier = 1)
+{
+    const adjustedHexRadiusForSpacings = hexRadius * multiplier
+
+    const initialXBuffer = adjustedHexRadiusForSpacings * 1.5;
+    const initialYBuffer = adjustedHexRadiusForSpacings * 0.5;
+    const betweenXBuffer = adjustedHexRadiusForSpacings * 0.75;
+    const betweenYBuffer = adjustedHexRadiusForSpacings;
+    const maxColumnSize = (gridRadius * 2 - 1) - Math.abs(gridRadius - x - 1);
+    const heightBuffer = initialYBuffer + betweenYBuffer * (gridRadius * 2 - maxColumnSize); 
+    
+    const xCoord = initialXBuffer + (betweenXBuffer + adjustedHexRadiusForSpacings) * x;
+    const yCoord = heightBuffer + (betweenYBuffer + adjustedHexRadiusForSpacings) * y;
+    
+    return {x: xCoord, y: yCoord};
+}
+
+function maxColumnHeight(gridRadius, columnIndex)
+{
+    return (gridRadius * 2 - 1) - Math.abs(gridRadius - columnIndex - 1);
+}
+
+function nextPiecesString(nextPieceValues)
+{
+    return `NEXT PIECES: ${nextPieceValues[0]} | ${nextPieceValues[1]} | ${nextPieceValues[2]}`
+}
+
+function scoreString(scoreValue)
+{
+    return `SCORE: ${scoreValue}`
+}
+
