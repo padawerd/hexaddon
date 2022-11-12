@@ -91,7 +91,7 @@ function absorb(scene, clickedHex)
                 x: clickedHex.currentPiece.hex.x,
                 y: clickedHex.currentPiece.hex.y,
                 ease: scene.constants.animationEase,
-                duration: scene.constants.animationDuration,
+                duration: scene.constants.animationDuration + 50,
                 repeat: 0,
                 yoyo:false
             });
