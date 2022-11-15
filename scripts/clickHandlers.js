@@ -6,7 +6,6 @@ function hexClickHandler(scene, position)
         populateClickedHex(scene, clickedHex);
         absorb(scene, clickedHex);
         updateNextPieces(scene);
-        handleLossIfNeeded(scene);
     }
 }
 
@@ -68,6 +67,8 @@ function absorb(scene, clickedHex)
     if (willAbsorb)
     {
         scene.model.touchesDisabled = true;
+    } else {
+        handleLossIfNeeded(scene);
     }
 
     for (const adjacentHex of clickedHex.adjacentHexes)
