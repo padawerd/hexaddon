@@ -26,8 +26,20 @@ function populateClickedHex(scene, clickedHex)
                                           innerMultiplier);
     const points = hexagonPoints(adjustedHexRadius);
     clickedHex.currentPiece.hex = scene.add.polygon(coords.x, coords.y, points, scene.constants.pieceColors[colorNumberForValue(newValue)]);
-    // todo: be more intentional
-    clickedHex.currentPiece.text = scene.add.text(coords.x - 10, coords.y, newValue);
+    
+
+    const fontSize = fontSizeForValue(newValue);
+    console.log("value: " + newValue + " - size: " + fontSize);
+    clickedHex.currentPiece.text = scene.add.text(0,
+                                                  0,
+                                                  newValue,
+                                                  { fontFamily: '"Monaco"'});
+    
+    // would be cool to be able to calculate this before adding to the scene...
+    clickedHex.currentPiece.text.x = positionForTextInHex(clickedHex.currentPiece.hex.x, adjustedHexRadius, clickedHex.currentPiece.text.width);
+    clickedHex.currentPiece.text.y = positionForTextInHex(clickedHex.currentPiece.hex.y, adjustedHexRadius, clickedHex.currentPiece.text.height);
+    clickedHex.currentPiece.text.setFontSize(fontSize);
+    
     incrementScore(scene, newValue);
 }
 
@@ -130,10 +142,20 @@ function removeCurrentPieceFromHex(hex)
 
 function doubleHex(scene, hex)
 {
+    const innerMultiplier = scene.constants.innerMultiplier
+    const adjustedHexRadius = scene.constants.hexRadius / innerMultiplier;
+
     const newValue = hex.currentPiece.value * 2;
+    const newFontSize = fontSizeForValue(newValue);
     hex.currentPiece.value = newValue;
     hex.currentPiece.text.text = newValue;
     hex.currentPiece.hex.fillColor = scene.constants.pieceColors[colorNumberForValue(newValue)];
+    if (newValueNeedsFontUpdate(newValue))
+    {
+        hex.currentPiece.text.setFontSize(newFontSize);
+        hex.currentPiece.text.x = positionForTextInHex(hex.currentPiece.hex.x, adjustedHexRadius, hex.currentPiece.text.width);
+        hex.currentPiece.text.y = positionForTextInHex(hex.currentPiece.hex.y, adjustedHexRadius, hex.currentPiece.text.height);
+    }
     incrementScore(scene, newValue);
 }
 

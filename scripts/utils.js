@@ -59,3 +59,28 @@ function colorNumberForValue(value)
     }
 }
 
+function fontSizeForValue(value)
+{
+    // 1 should be 20
+    // 2 should be 15?
+    // 3 should be 10?
+    // 4 should be 5?
+    const valueStringLength = value.toString().length;
+    return 25 - (valueStringLength * 4);
+}
+
+function newValueNeedsFontUpdate(newValue)
+{
+    return fontSizeForValue(newValue) < fontSizeForValue(newValue / 2);
+}
+
+function offsetForTextSize(textSize, hexRadius)
+{
+    return (hexRadius - textSize) / 2;
+}
+
+// note: doesn't take in a position, but rather just the x/y, which are treated the same. what's that called? axis? 
+function positionForTextInHex(hexPosition, hexRadius, textSize)
+{
+    return hexPosition - (hexRadius / 2) + offsetForTextSize(textSize, hexRadius);
+}

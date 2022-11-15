@@ -152,6 +152,8 @@ function setupNextPieces(scene)
 {
     scene.model.nextPieces = {};
     scene.model.nextPieces.values  = [1, 1, 1];
+    // font size testing
+    //scene.model.nextPieces.values  = [8, 8, 16];
     scene.model.nextPieces.text = scene.add.text(25, 550, nextPiecesString(scene.model.nextPieces.values));
 }
 
