@@ -44,7 +44,8 @@ function nextPieceValue(scene)
     const flattenedHexes = scene.model.backgroundHexes.flat();
     const hexesWithPieces = _.filter(flattenedHexes, flattenedHex => flattenedHex.currentPiece != null);
     const values = _.map(hexesWithPieces, piece => piece.currentPiece.value);
-    const minValue = Math.min(...values);
+    //const minValue = Math.min(...values);
+    const minValue = 1;
     const maxValue = Math.max(...values);
     const logMinValue = Math.log(minValue) / Math.log(2);
     const logMaxValue = Math.log(maxValue) / Math.log(2);
