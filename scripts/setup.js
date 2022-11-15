@@ -4,17 +4,11 @@ var config = {
     height: 600,
     backgroundColor: '#852999',
     scene: {
-        //preload: preload,
         create: create
     }
 };
 
 var game = new Phaser.Game(config);
-
-function preload()
-{
-    // no need? only for loading assets, i think
-}
 
 function create()
 {
