@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.AUTO,
+    type: Phaser.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
     width: 500,
     height: 600,
