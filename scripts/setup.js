@@ -1,5 +1,5 @@
 var config = {
-    type: Phaser.FIT,
+    type: Phaser.Scale.ENVELOP,
     autoCenter: Phaser.Scale.CENTER_BOTH,
     width: 500,
     height: 600,
